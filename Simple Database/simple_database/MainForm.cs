@@ -63,23 +63,25 @@ namespace simple_database
 			
 			for (int i = 0; i < 2; i++)
 			{
-				ComboBox entry = new ComboBox();
-				entry.Width = 80;
-				entry.Location = new Point((i == 0) ? 20 : 120, (i == 0) ? 163 : 336);
-				entry.Name = "combo" + i.ToString();
+				ComboBox combo = new ComboBox();
+				combo.Width = 80;
+				combo.Location = new Point((i == 0) ? 20 : 120, (i == 0) ? 163 : 336);
+				combo.Name = "combo" + i.ToString();
 									
 				foreach (string item in combo_item)
 				{
-					entry.Items.Add(item);
+					combo.Items.Add(item);
 				}
 				
-				entry.Parent = this;
+				combo.Parent = this;
 			}
 			
 			for (int i = 0; i < 3; i++)
 			{
 				Button btn = new Button();
 				btn.Text = control_text[i];
+				btn.Name = "button" + i.ToString();
+				btn.Tag = control_text[i];
 				btn.Location = new Point(20, (i == 0) ? 270 : 380);
 				
 				if (i == 2)
@@ -89,8 +91,92 @@ namespace simple_database
 				
 				btn.Size = new Size(80, 30);
 				btn.Font = new Font(FontFamily.GenericSerif, 12f);
+				btn.Click += ButtonClick;
 				btn.Parent = this;
 			}
+			
+			try {
+				database.LoadFile("simple_db.txt", RichTextBoxStreamType.PlainText);
+			} catch {
+				database.SaveFile("simple_db.txt", RichTextBoxStreamType.PlainText);
+			}
+		}
+		
+		void ButtonClick(object sender, EventArgs e)
+		{
+			Button btn = sender as Button;
+			
+			listing.Items.Clear();
+			
+			switch (btn.Tag.ToString())
+			{
+				case "save":
+					string data = null;
+					
+					for (int i = 0; i < 4; i++)
+					{
+						TextBox entry = null; ComboBox combo = null;
+						
+						if (i < 3)
+						{
+							entry = ObjSearch("entry" + i.ToString()) as TextBox;
+							if (entry.Text.Length < 1)
+							{
+								MessageBox.Show("Por favor, preencha todos os dados pedido.");
+								data = null;
+								break;
+							}
+						}
+						else
+						{
+							combo = ObjSearch("combo0") as ComboBox;
+							if (combo.Text.Length < 1)
+							{
+								MessageBox.Show("Por favor, preencha todos os dados pedido.");
+								data = null;
+								break;
+							}
+						}
+						
+						try
+						{
+							data += (i < 3) ? entry.Text + "  |  " : combo.Text;
+						}
+						catch
+						{
+							MessageBox.Show("Por favor, preencha os dados sem qualquer formatação e de forma adequada.");
+							data = null;
+							break;
+						}
+					}
+					
+					if (data != null)
+					{
+						listing.Items.Add(data); database.Text += data;
+						database.SaveFile("simple_db.txt", RichTextBoxStreamType.PlainText);
+					}
+					
+					break;
+				case "consult":
+					break;
+				case "search":
+					break;
+			}
+		}
+		
+		object ObjSearch(string name)
+		{
+			foreach (Control control in this.Controls)
+			{
+				if (control is TextBox || control is ComboBox)
+				{
+					if (control.Name.Contains(name))
+					{
+						return control;
+					}
+				}
+			}
+			return null;
 		}
 	}
 }
