@@ -12,6 +12,9 @@ namespace simple_database
 			InitializeComponent();
 		}
 		
+		ListBox listing = new ListBox();
+		RichTextBox database = new RichTextBox();
+		
 		string[] entry_label = new string[]
 		{
 			"name", "office", "section", "salary"
@@ -31,21 +34,29 @@ namespace simple_database
 		{
 			this.MaximizeBox = false;
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
-
+						
+			listing.Size = new Size(300, this.Height - 50);
+			listing.Location = new Point(260, 5);
+			listing.Parent = this;
+			
+			database.Size = new Size(300, this.Height - 50);
+			database.Location = new Point(580, 5);
+			database.ReadOnly = true;
+			database.Parent = this;
+			
 			for (int i = 0; i < 4; i++)
 			{
 				Label label = new Label();
 				label.Text = entry_label[i];
 				label.Name = "label" + i.ToString();
 				label.AutoSize = true;
-				label.Location = new Point(20, 20 + 60 * 1);
-				label.Top = 20 + 60 * i; label.Left = 20;
+				label.Location = new Point(20, 20 + 60 * i);
 				label.Font = new Font(FontFamily.GenericSerif, 14f);
 				label.Parent = this;
 				
 				TextBox entry = new TextBox();
 				entry.Width = (i == 3) ? 80 : 180;
-				entry.Location = new Point(20, (i < 2) ? 20 + 25 + 60 * i : 115 * i);
+				entry.Location = new Point(20, (i < 2) ? 20 + 25 + 60 * i : 112 * i);
 				entry.Name = "entry" + i.ToString();
 				entry.Parent = this;
 			}
@@ -54,7 +65,7 @@ namespace simple_database
 			{
 				ComboBox entry = new ComboBox();
 				entry.Width = 80;
-				entry.Location = new Point((i == 0) ? 20 : 120, (i == 0) ? 165 : 345);
+				entry.Location = new Point((i == 0) ? 20 : 120, (i == 0) ? 163 : 336);
 				entry.Name = "combo" + i.ToString();
 									
 				foreach (string item in combo_item)
