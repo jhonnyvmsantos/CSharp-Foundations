@@ -1,0 +1,8 @@
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\bin\Debug\simple_database.exe.config
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\bin\Debug\simple_database.exe
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\bin\Debug\simple_database.pdb
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\obj\Debug\simple_database.csprojResolveAssemblyReference.cache
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\obj\Debug\simple_database.MainForm.resources
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\obj\Debug\simple_database.csproj.GenerateResource.Cache
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\obj\Debug\simple_database.exe
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Simple Database\simple_database\obj\Debug\simple_database.pdb
