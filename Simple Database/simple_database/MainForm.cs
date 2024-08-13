@@ -22,7 +22,7 @@ namespace simple_database
 		
 		string[] combo_item = new string[]
 		{
-			"section 1", "section 2", "section 3","section 4", "section 5"
+			"Section 1", "Section 2", "Section 3","Section 4", "Section 5"
 		};
 		
 		string[] control_text = new string[]
@@ -144,7 +144,7 @@ namespace simple_database
 						}
 						catch
 						{
-							MessageBox.Show("Por favor, preencha os dados sem qualquer formatação e de forma adequada.");
+							MessageBox.Show("Por favor, preencha os dados sem qualquer formatação (Formato PlainText).");
 							data = null;
 							break;
 						}
@@ -152,14 +152,46 @@ namespace simple_database
 					
 					if (data != null)
 					{
-						listing.Items.Add(data); database.Text += data;
+						listing.Items.Add(data); database.Text += (database.Lines.Length < 1) ? data : "\n" + data;
 						database.SaveFile("simple_db.txt", RichTextBoxStreamType.PlainText);
 					}
 					
 					break;
 				case "consult":
+					TextBox consult = ObjSearch("entry3") as TextBox;
+					
+					try {
+						string line = database.Lines[Convert.ToInt32(consult.Text)];
+						listing.Items.Clear();
+						listing.Items.Add(line);
+					} catch {
+						MessageBox.Show("Tente consultar um número (ID) de registro válido.\nComeçando pelo número 0 invés do 1...");
+					}
+					
 					break;
 				case "search":
+					ComboBox search = ObjSearch("combo1") as ComboBox;
+					
+					if (search.Text.Length > 0)
+					{
+						foreach (string line in database.Lines)
+						{
+							if (line.Contains(search.Text))
+							{
+								listing.Items.Add(line);
+							}
+						}
+						
+						if (listing.Items.Count < 1)
+						{
+							MessageBox.Show("Não há ID\'s participantes desta seção...");
+						}
+					}
+					else
+					{
+						MessageBox.Show("Por favor, informe a seção usada como referência para a busca...");
+					}
+					
 					break;
 			}
 		}

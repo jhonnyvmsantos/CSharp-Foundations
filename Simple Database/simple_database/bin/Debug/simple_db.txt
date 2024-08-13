@@ -1,1 +1,5 @@
-Jhonny  |  Dev Full-Stack  |  2500  |  section 4
+Jhonny  |  Dev Full-Stack  |  2500  |  Section 2
+Pedro  |  Dev Back-End  |  2500  |  Section 3
+Matheus  |  Dev Front-End  |  2500  |  Section 3
+Gabriel  |  Web Designer  |  2500  |  Section 3
+Maycon  |  TI  |  2500  |  Section 1
