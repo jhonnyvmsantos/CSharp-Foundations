@@ -1,0 +1,16 @@
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.exe.config
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.exe
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.pdb
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.csprojResolveAssemblyReference.cache
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.MainForm.resources
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.csproj.GenerateResource.Cache
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.exe
+C:\Users\mjhon\OneDrive\Documentos\SharpDevelop Projects\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.pdb
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.exe.config
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.exe
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\bin\Debug\control_tabs.pdb
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.csprojResolveAssemblyReference.cache
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.MainForm.resources
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.csproj.GenerateResource.Cache
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.exe
+C:\Users\mjhon\OneDrive\Área de Trabalho\Projetos\C#\CSharp-Foundations\Cntrol Tabs\control_tabs\obj\Debug\control_tabs.pdb
