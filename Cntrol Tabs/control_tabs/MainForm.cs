@@ -42,12 +42,13 @@ namespace control_tabs
 			for (int i = 0; i < 5; i++)
 			{
 				TabPage tab = new TabPage();
-				tab.Name = "tab" + i.ToString();
+				tab.Name = "tab_page" + i.ToString();
 				tab.Text = tab_pages[i];
 				tab.BackColor = Color.White;
 				tabs.TabPages.Add(tab);
 			}
 			
+//			INNER CONTENT (TAB_PAGE 0)
 			for (int i = 0; i < 6; i++)
 			{
 				TabPage page = tabs.TabPages[0] as TabPage;
@@ -71,10 +72,12 @@ namespace control_tabs
 				else
 				{
 					Button calc = new Button();
-					calc.Name = "page0_btn" + i.ToString();
+					calc.Name = "page0_button" + i.ToString();
+					calc.Tag = "average";
 					calc.Text = text_inner_pages[0][2];
 					calc.Location = new Point(page.Width - 160, (page.Height / 2) - 50);
 					calc.Size = new Size(100, 30);
+					calc.Click += ButtonClick;
 					calc.Parent = page;
 					
 					Label label = new Label();
@@ -92,15 +95,20 @@ namespace control_tabs
 					entry.Parent = page;
 				}
 			}
+			
+//			INNER CONTENT (TAB_PAGE 1)
+//			INNER CONTENT (TAB_PAGE 2)
+//			INNER CONTENT (TAB_PAGE 3)
+//			INNER CONTENT (TAB_PAGE 4)
 		}
 		
-		object SearchObject(string name)
+		object SearchTabObject(string name, int tab)
 		{
-			foreach (Control control in this.Controls)
+			foreach (Control control in tabs.TabPages[tab].Controls)
 			{
 				if (control is TextBox || control is Button)
 				{
-					if (control.Name.Contains(name))
+					if (control.Name.Contains(name) == true)
 					{
 						return control;
 					}
@@ -108,6 +116,41 @@ namespace control_tabs
 			}
 			
 			return null;
+		}
+		
+		void ButtonClick(object sender, EventArgs e)
+		{
+			Button btn = sender as Button;
+			TextBox entry = null;
+			
+			switch (btn.Tag.ToString())
+			{
+				case "average":
+					float total = 0;
+					
+					for (int i = 0; i < 5; i++)
+					{
+						entry = SearchTabObject("page0_entry" + i.ToString(), 0) as TextBox;
+						
+						try
+						{
+							total += float.Parse(entry.Text);
+							entry = null;
+						}
+						catch
+						{
+							MessageBox.Show("Por favor, utilize números inteiros - flutuantes, apenas...\nUtilize \",\" para números decimais");
+							break;
+						}
+					}
+					
+					if (entry == null)
+					{
+						entry = SearchTabObject("page0_entry5", 0) as TextBox;
+						entry.Text = (total / 5).ToString();
+					}
+					break;
+			}
 		}
 	}
 }
