@@ -143,11 +143,11 @@ namespace control_tabs
 			Button btn = sender as Button;
 			TextBox entry = null;
 			
+			float total = 0; string format = null;
+			
 			switch (btn.Tag.ToString())
 			{
-				case "average":
-					float total = 0;
-					
+				case "average":					
 					for (int i = 0; i < 5; i++)
 					{
 						entry = SearchTabObject("page0_entry" + i.ToString(), 0) as TextBox;
@@ -168,11 +168,34 @@ namespace control_tabs
 					if (entry == null)
 					{
 						entry = SearchTabObject("page0_entry5", 0) as TextBox;
-						entry.Text = (total != 0) ? (total / 5).ToString() : "";
+						entry.Text = (total / 5).ToString();
 					}
 					break;
 					
-				case "strength":
+				case "strength":					
+					for (int i = 0; i < 2; i++)
+					{
+						entry = SearchTabObject("page1_entry" + i.ToString(), 1) as TextBox;
+						
+						try
+						{
+							total = (i == 0) ? float.Parse(entry.Text) : total * float.Parse(entry.Text);
+							entry = null;
+						}
+						catch
+						{
+							MessageBox.Show("Por favor, utilize números inteiros - flutuantes, apenas...\nUtilize \",\" para números decimais");
+							total = 0;
+							break;
+						}
+					}
+					
+				
+					if (entry == null)
+					{
+						entry = SearchTabObject("page1_entry2", 1) as TextBox;
+						entry.Text = total.ToString();
+					}
 					break;
 			}
 		}
