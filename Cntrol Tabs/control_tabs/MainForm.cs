@@ -59,6 +59,9 @@ namespace control_tabs
 						element_location: new int[] {
 							60, 65 * (i + 1) - 20, 
 							60,  65 * (i + 1) + 5
+						},
+						opt_width: new int[] {
+							0
 						}
 					);
 				}
@@ -75,6 +78,9 @@ namespace control_tabs
 							tabs.Width - 180, (tabs.Height / 2) - 50,
 							tabs.Width - 160, tabs.Height / 2,
 							tabs.Width - 180, (tabs.Height / 2) + 25
+						},
+						opt_width: new int[] {
+							0, 0
 						}
 					);
 				}
@@ -93,6 +99,9 @@ namespace control_tabs
 						element_location: new int[] {
 							60, 65 * (i + 1) + 65,
 							60, 65 * (i + 1) + 90
+						},
+						opt_width: new int[] {
+							0
 						}
 					);
 				}
@@ -108,16 +117,52 @@ namespace control_tabs
 							tabs.Width - 180, (tabs.Height / 2) - 50,
 							tabs.Width - 160, tabs.Height / 2,
 							tabs.Width - 180, (tabs.Height / 2) + 25
+						},
+						opt_width: new int[] {
+							0, 0
 						}
 					);
 				}
 			}
 			
 //			INNER CONTENT (TAB_PAGE 2)
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 3; i++)
 			{
-				
+				if (i < 2)
+				{
+					CreateFormEntry(
+						useful: new int[] {2, i},
+						text_label: text_inner_pages[2][i],
+						element_location: new int[] {
+							(tabs.Width / 2) - 80, 65 * (i + 1),
+							(tabs.Width / 2) - 80, 65 * (i + 1) + 25
+						},
+						opt_width: new int[] {
+							160
+						}
+					);
+				}
+				else
+				{
+					CreateFormOutput(
+						useful: new int[] {2, i},
+						element_text: new string[] {
+							text_inner_pages[2][3],
+							text_inner_pages[2][2]
+						},
+						button_tag: "name_format",
+						element_location: new int[] {
+							(tabs.Width / 2) - 60, (tabs.Height / 2) + 10,
+							(tabs.Width / 2) - 35, (tabs.Height / 2) + 60,
+							(tabs.Width / 2) - 80, (tabs.Height / 2) + 85
+						},
+						opt_width: new int[] {
+							120, 160
+						}
+					);
+				}
 			}
+			
 //			INNER CONTENT (TAB_PAGE 3)
 //			INNER CONTENT (TAB_PAGE 4)
 		}
@@ -143,7 +188,7 @@ namespace control_tabs
 			Button btn = sender as Button;
 			TextBox entry = null;
 			
-			float total = 0; string format = null;
+			float total = 0; string format = "";
 			
 			switch (btn.Tag.ToString())
 			{
@@ -197,10 +242,61 @@ namespace control_tabs
 						entry.Text = total.ToString();
 					}
 					break;
+					
+				case "name_format":
+					for (int i = 0; i < 2; i++)
+					{
+						entry = SearchTabObject("page2_entry" + i.ToString(), 2) as TextBox;
+						
+						try
+						{
+							bool verification = true;
+							
+							foreach (char letter in entry.Text)
+							{
+								int code = Convert.ToInt32(letter);
+
+								if (code != 32 && code < 65 || code > 90)
+								{
+									if (code < 97 || code > 122)
+									{
+										MessageBox.Show("Por favor, apenas coloque seu nome/sobrenome, sem números ou caracteres especiais/acentuados (?)...");
+										format = ""; verification = false;
+										break;
+									}
+								}
+							}
+							
+							if (verification == true)
+							{
+								format += (format.Length > 0) ? " " + entry.Text : entry.Text;
+								entry = null;
+							}
+						}
+						catch
+						{
+							MessageBox.Show("Por favor, apenas coloque seu nome/sobrenome, sem números ou caracteres especiais/acentuados (?)...");
+							format = "";
+							break;
+						}
+					}
+					
+				
+					if (entry == null && format != "")
+					{
+						entry = SearchTabObject("page2_entry2", 2) as TextBox;
+						entry.Text = format;
+					}
+					
+					break;
+				case "date_format":
+					break;
+				case "income":
+					break;
 			}
 		}
 		
-		void CreateFormEntry(int[] useful, string text_label, int[]element_location)
+		void CreateFormEntry(int[] useful, string text_label, int[]element_location, int[] opt_width)
 		{
 			TabPage tab = tabs.TabPages[useful[0]] as TabPage;
 			
@@ -215,11 +311,11 @@ namespace control_tabs
 			TextBox entry = new TextBox();
 			entry.Name = "page" + useful[0].ToString() + "_entry" + useful[1].ToString();
 			entry.Location = new Point(element_location[2], element_location[3]);
-			entry.Width = 120;
+			entry.Width = (opt_width[0] > 0) ? opt_width[0] : 120;
 			entry.Parent = tab;
 		}
 		
-		void CreateFormOutput(int[] useful, string[] element_text, string button_tag, int[] element_location)
+		void CreateFormOutput(int[] useful, string[] element_text, string button_tag, int[] element_location, int[] opt_width)
 		{
 			TabPage tab = tabs.TabPages[useful[0]] as TabPage;
 			
@@ -228,7 +324,7 @@ namespace control_tabs
 			calc.Tag = button_tag;
 			calc.Text = element_text[0];
 			calc.Location = new Point(element_location[0], element_location[1]);
-			calc.Size = new Size(100, 30);
+			calc.Size = new Size((opt_width[0] > 0) ? opt_width[0] : 100, 30);
 			calc.Click += ButtonClick;
 			calc.Parent = tab;
 			
@@ -243,7 +339,8 @@ namespace control_tabs
 			TextBox entry = new TextBox();
 			entry.Name = "page" + useful[0] + "_entry" + useful[1].ToString();
 			entry.Location = new Point(element_location[4], element_location[5]);
-			entry.Width = 100; entry.ReadOnly = true;
+			entry.Width = (opt_width[1] > 0) ? opt_width[1] : 100; 
+			entry.ReadOnly = true;
 			entry.Parent = tab;
 		}
 	}
