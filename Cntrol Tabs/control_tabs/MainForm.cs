@@ -164,6 +164,43 @@ namespace control_tabs
 			}
 			
 //			INNER CONTENT (TAB_PAGE 3)
+			for (int i = 0; i < 4; i++)
+			{
+				TabPage page = tabs.TabPages[3] as TabPage;
+
+				if (i < 3)
+				{
+					CreateFormEntry(
+						useful: new int[] {3, i},
+						text_label: text_inner_pages[3][i],
+						element_location: new int[] {
+							100, 65 * (i + 1) + 30,
+							100, 65 * (i + 1) + 55
+						},
+						opt_width: new int[] {
+							0
+						}
+					);
+				}
+				else{
+					CreateFormOutput(
+						useful: new int[] {3, i},
+						element_text: new string[] {
+							text_inner_pages[3][4],
+							text_inner_pages[3][3]
+						},
+						button_tag: "date_format",
+						element_location: new int[] {
+							tabs.Width - 220, (tabs.Height / 2) - 50,
+							tabs.Width - 192, tabs.Height / 2,
+							tabs.Width - 220, (tabs.Height / 2) + 25
+						},
+						opt_width: new int[] {
+							0, 0
+						}
+					);
+				}
+			}
 //			INNER CONTENT (TAB_PAGE 4)
 		}
 		
@@ -290,6 +327,67 @@ namespace control_tabs
 					
 					break;
 				case "date_format":
+					DateTime dt;
+					
+					string[] month = new string[]
+					{
+						"january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"
+					};
+					bool validation = false;
+					
+					for (int i = 0; i < 3; i++)
+					{
+						entry = SearchTabObject("page3_entry" + i.ToString(), 3) as TextBox;
+
+						if (entry.Text.Length > 0)
+						{
+							if (i == 1)
+							{
+								int mcount = 1;
+								
+								foreach (string selected in month)
+								{
+									if (entry.Text.ToLower() != selected && entry.Text.ToLower() != selected.Substring(0, 3))
+									{
+										mcount++;
+									}
+									else
+									{
+										break;
+									}
+								}
+								
+								if (mcount >= 12)
+								{
+									format += (entry.Text.Length == 1) ? "/0" + entry.Text + "/" : "/" + entry.Text + "/";
+								}
+								else
+								{
+									format += (mcount < 10) ? "/0" + mcount.ToString() + "/" : "/" + mcount.ToString() + "/";
+								}
+							}
+							else if (i == 0)
+							{
+								format += (entry.Text.Length == 1) ? "0" + entry.Text : entry.Text;
+							}
+							else
+							{
+								format += (entry.Text.Length == 2) ? (DateTime.Now.Year).ToString().Substring(0, 2) + entry.Text : entry.Text;
+							}
+						}
+					}
+					
+					MessageBox.Show(format);
+					validation = DateTime.TryParseExact(format, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dt);
+					if (validation == true)
+					{
+						entry = SearchTabObject("page3_entry3", 3) as TextBox;
+						entry.Text = format;
+					}
+					else
+					{
+						MessageBox.Show("Por favor, utilize uma data válida. Use apenas números, de preferência.\nNo mês, pode-se utilizar o nome do mês (Inglês)...");
+					}
 					break;
 				case "income":
 					break;
