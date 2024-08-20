@@ -166,8 +166,6 @@ namespace control_tabs
 //			INNER CONTENT (TAB_PAGE 3)
 			for (int i = 0; i < 4; i++)
 			{
-				TabPage page = tabs.TabPages[3] as TabPage;
-
 				if (i < 3)
 				{
 					CreateFormEntry(
@@ -201,7 +199,43 @@ namespace control_tabs
 					);
 				}
 			}
+			
 //			INNER CONTENT (TAB_PAGE 4)
+			for (int i = 0; i < 3; i++)
+			{
+				if (i < 2)
+				{
+					CreateFormEntry(
+						useful: new int[] {4, i},
+						text_label: text_inner_pages[4][i],
+						element_location: new int[] {
+							100, 65 * (i + 1) + 75,
+							100, 65 * (i + 1) + 98
+						},
+						opt_width: new int[] {
+							0
+						}
+					);
+				}
+				else{
+					CreateFormOutput(
+						useful: new int[] {4, i},
+						element_text: new string[] {
+							text_inner_pages[4][3],
+							text_inner_pages[4][2]
+						},
+						button_tag: "income",
+						element_location: new int[] {
+							tabs.Width - 220, (tabs.Height / 2) - 50,
+							tabs.Width - 195, tabs.Height / 2,
+							tabs.Width - 220, (tabs.Height / 2) + 25
+						},
+						opt_width: new int[] {
+							0, 0
+						}
+					);
+				}
+			}
 		}
 		
 		object SearchTabObject(string name, int tab)
@@ -390,6 +424,28 @@ namespace control_tabs
 					}
 					break;
 				case "income":
+					for (int i = 0; i < 2; i++)
+					{
+						entry = SearchTabObject("page4_entry" + i.ToString(), 4) as TextBox;
+						
+						try
+						{
+							total = (i == 0) ? float.Parse(entry.Text) / 100 : float.Parse(entry.Text) * total;
+							entry = null;
+						}
+						catch
+						{
+							MessageBox.Show("Por favor, utilize números inteiros - flutuantes, apenas...\nUtilize \",\" para números decimais");
+							total = 0;
+							break;
+						}
+					}
+					
+					if (entry == null)
+					{
+						entry = SearchTabObject("page4_entry2", 4) as TextBox;
+						entry.Text = total.ToString();
+					}
 					break;
 			}
 		}
